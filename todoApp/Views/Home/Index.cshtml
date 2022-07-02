@@ -4,11 +4,6 @@
     <h1 class="display-4">To-Do App</h1>
 </div>
 
-<div class="todoInput">
-    <input type="text" class="w-100"/>
-    <a asp-action="Create" class="btn btn-primary mt-3 w-100">Save</a>
-</div>
-
 <div>
     <table class="table">
     <thead>
@@ -33,7 +28,6 @@
             </td>
             <td class="text-center">
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
