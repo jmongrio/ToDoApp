@@ -1,8 +1,4 @@
-﻿@model IEnumerable<todoApp.Models.TodoTask>
-
-<div class="text-center">
-    <h1 class="display-4">To-Do App</h1>
-</div>
+﻿@model todoApp.Models.ViewModel.TodoViewModel;
 
 <div>
     <table class="table">
@@ -18,7 +14,7 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.TodoList){
         <tr>
             <td class="text-center">
                 @Html.DisplayFor(modelItem => item.Description)
@@ -27,8 +23,8 @@
                 @Html.DisplayFor(modelItem => item.Status)
             </td>
             <td class="text-center">
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id">Complete</a>
+                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
 }

@@ -36,7 +36,7 @@
         </nav>
     </header>
     <div class="container">
-        <partial name="_Form" model="Model.TodoTask"></partial>
+        @Html.Partial("_Form")
         <main role="main" class="pb-3">
             @RenderBody()
         </main>

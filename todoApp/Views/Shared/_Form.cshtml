@@ -1,9 +1,13 @@
-﻿@model todoApp.Models.TodoTask;
+﻿@model todoApp.Models.ViewModel.TodoViewModel;
+
+<div class="text-center">
+    <h1 class="display-4">To-Do App</h1>
+</div>
+
 
 <div class="todoInput">
     <form  asp-action="Create" id="form-action" method="post">
-        <input type="text" class="w-100" placeholder="Task"/>
-        <a class="btn btn-primary mt-3 w-100">Save</a>
-
+        <input asp-for="TodoModel.Description" type="text" class="w-100" placeholder="Task"/>
+        <input type="submit" class="btn btn-primary mt-3 w-100" value="Save"/>
     </form>
 </div>

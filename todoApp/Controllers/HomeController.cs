@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using todoApp.Context;
 using todoApp.Models;
+using todoApp.Models.ViewModel;
 
 namespace todoApp.Controllers
 {
@@ -16,31 +18,42 @@ namespace todoApp.Controllers
 
         public IActionResult Index()
         {
+            var todoListViewModel = GetTodoList();
+
+            return View(todoListViewModel);
+
+            //return View();
+        }
+
+        internal TodoViewModel GetTodoList()
+        {
             List<TodoTask> taskList = new List<TodoTask>();
 
             taskList = _context.TodoTasks.ToList();
 
-            return View(taskList);
+            return new TodoViewModel
+            {
+                TodoList = taskList
+            };
         }
 
-        public RedirectResult Create(TodoTask task)
+        public RedirectResult Create(TodoViewModel task)
         {
-            task.Status = "In Progress";
-            _context.TodoTasks.Add(task);
+            task.TodoModel.Status = "In Progress";
+            _context.TodoTasks.Add(task.TodoModel);
             _context.SaveChanges();
 
             return Redirect("Index");
         }
 
-        public IActionResult Privacy()
+        public ActionResult Delete(int Id)
         {
-            return View();
-        }
+            TodoViewModel task = new TodoViewModel();
+            task.TodoModel = _context.TodoTasks.FirstOrDefault(t => t.Id == Id);
+            _context.Entry(task.TodoModel).State = EntityState.Deleted;
+            _context.SaveChanges();
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return RedirectToAction("Index");
         }
     }
 }
