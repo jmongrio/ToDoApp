@@ -23,8 +23,15 @@
                 @Html.DisplayFor(modelItem => item.Status)
             </td>
             <td class="text-center">
-                <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id">Complete</a>
-                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        @if (item.Status == "In Progress")
+                        {
+                            <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.Id">Complete</a>
+                        }
+                        else
+                        {
+                            <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id">In Progress</a>
+                        }
+                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
 }

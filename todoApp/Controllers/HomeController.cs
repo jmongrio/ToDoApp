@@ -55,5 +55,23 @@ namespace todoApp.Controllers
 
             return RedirectToAction("Index");
         }
+
+        public ActionResult Edit(int Id)
+        {
+            TodoViewModel task = new TodoViewModel();
+            task.TodoModel = _context.TodoTasks.FirstOrDefault(t => t.Id == Id);
+            if (task.TodoModel.Status == "In Progress")
+            {
+                task.TodoModel.Status = "Complete";
+            }
+            else
+            {
+                task.TodoModel.Status = "In Progress";
+            }
+            _context.Entry(task.TodoModel).State = EntityState.Modified;
+            _context.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
     }
 }
